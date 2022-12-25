@@ -9,7 +9,8 @@ from media_part.serializers import PostSeializer
 from media_part.serializers import LikesSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
-from users.permissions import IsOwnerPermission
+from users.permissions import IsOwnerPermission, IsOwnerPermissionClass
+
 
 
 
@@ -45,7 +46,7 @@ class EditPostView(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSeializer
     authentication_classes = [JWTAuthentication,]
-    permission_classes = [IsOwnerPermission,]
+    permission_classes = [IsOwnerPermissionClass,]
 
 
 
@@ -99,10 +100,10 @@ class AddLikeView(APIView):
 
 
 
-    def post(self, request, id):
+    def post(self, request, pk):
         '''This API endpoint provides a "post" method for creating a like on a post
         using a POST request.'''
-        post = Post.objects.get(pk=id)
+        post = Post.objects.get(pk=pk)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save(post=post,
@@ -115,3 +116,5 @@ class AddLikeView(APIView):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST
                             )
+
+

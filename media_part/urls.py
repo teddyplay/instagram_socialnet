@@ -17,7 +17,7 @@ urlpatterns = [
                                                              "delete":"destroy",
                                                              })),
     path('api/v1/likes_list/<int:pk>/', LikesView.as_view()),
-    path('api/v1/add_like/<int:id>/', AddLikeView.as_view(), name='add_likes'),
+    path('api/v1/add_like/<int:pk>/', AddLikeView.as_view(), name='add_likes'),
 ]
 
 

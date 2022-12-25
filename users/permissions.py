@@ -12,3 +12,11 @@ class IsOwnerPermission(permissions.BasePermission):
         return request.user == obj.username
 
 
+class IsOwnerPermissionClass(permissions.BasePermission):
+    """check if owner """
+
+    def has_object_permission(self, request, view, obj):
+        if request.method == SAFE_METHODS:
+            return True
+
+        return request.user == obj.author

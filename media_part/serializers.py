@@ -49,6 +49,7 @@ class PostSeializer(serializers.ModelSerializer):
                   "description",
                   "hashtags",
                   "likes",
+                  "date",
                   ]
 
 
